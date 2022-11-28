@@ -38,7 +38,6 @@ class OwnerSerializer(serializers.ModelSerializer):
 class CatSerializer(serializers.ModelSerializer):
     age = serializers.SerializerMethodField()
     achievements = AchievementSerializer(many=True, required=False)
-    color = serializers.ChoiceField(choices=CHOICES)
 
     class Meta:
         model = Cat
@@ -61,3 +60,11 @@ class CatSerializer(serializers.ModelSerializer):
 
     def get_age(self, obj):
         return dt.datetime.now().year - obj.birth_year
+
+
+class CatListSerializer(serializers.ModelSerializer):
+    color = serializers.ChoiceField(choices=CHOICES)
+
+    class Meta:
+        model = Cat
+        fields = ('id', 'name', 'color')
